@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../main.dart';
 import 'recording_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +16,13 @@ class HomeScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          // Professional gradient background
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.blue[50]!,
+              Colors.blue[50] ?? Colors.blue.shade50,
               Colors.white,
-              Colors.blue[25]!,
+              Colors.blue[100] ?? Colors.blue.shade100,
             ],
           ),
         ),
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: Colors.blue[800],
+                    color: Colors.blue[800] ?? Colors.blue.shade800,
                     borderRadius: BorderRadius.circular(60),
                     boxShadow: [
                       BoxShadow(
@@ -53,9 +53,9 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
+
                 // App title
                 const Text(
                   'Professional Video Pitch',
@@ -66,9 +66,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // App description
                 const Text(
                   'Record your elevator pitch and showcase\nyour professional story to stand out\nin the competitive market',
@@ -79,25 +79,39 @@ class HomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                
+
                 const SizedBox(height: 60),
-                
+
                 // Start recording button
                 SizedBox(
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to recording screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RecordingScreen(),
-                        ),
-                      );
+                      // Check if cameras are available
+                      if (cameras.isEmpty) {
+                        // Show error message for web or devices without cameras
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Camera not available on this device. Please run on mobile device for full functionality.',
+                            ),
+                            backgroundColor: Colors.orange,
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      } else {
+                        // Navigate to recording screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RecordingScreen(),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[800],
+                      backgroundColor: Colors.blue[800] ?? Colors.blue.shade800,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -106,29 +120,31 @@ class HomeScreen extends StatelessWidget {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.videocam, size: 24),
+                        Icon(Icons.videocam, size: 24, color: Colors.white),
                         SizedBox(width: 12),
                         Text(
                           'Start Recording',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 20),
-                
+
                 // Tips section
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.blue[50],
+                    color: Colors.blue[50] ?? Colors.blue.shade50,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue[200]!),
+                    border: Border.all(
+                        color: Colors.blue[200] ?? Colors.blue.shade200),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +154,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.blue[800],
+                          color: Colors.blue[800] ?? Colors.blue.shade800,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -151,6 +167,48 @@ class HomeScreen extends StatelessWidget {
                           fontSize: 14,
                           color: Colors.black87,
                           height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Status indicator
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: cameras.isEmpty
+                        ? (Colors.orange[50] ?? Colors.orange.shade50)
+                        : (Colors.green[50] ?? Colors.green.shade50),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: cameras.isEmpty
+                          ? (Colors.orange[200] ?? Colors.orange.shade200)
+                          : (Colors.green[200] ?? Colors.green.shade200),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        cameras.isEmpty ? Icons.warning : Icons.check_circle,
+                        color: cameras.isEmpty
+                            ? (Colors.orange[700] ?? Colors.orange.shade700)
+                            : (Colors.green[700] ?? Colors.green.shade700),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          cameras.isEmpty
+                              ? 'Run on mobile device for camera features'
+                              : 'Camera ready! ${cameras.length} camera(s) available',
+                          style: TextStyle(
+                            color: cameras.isEmpty
+                                ? (Colors.orange[700] ?? Colors.orange.shade700)
+                                : (Colors.green[700] ?? Colors.green.shade700),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],

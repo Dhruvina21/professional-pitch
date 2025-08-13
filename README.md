@@ -155,13 +155,6 @@ This is a learning project, but feedback and suggestions are welcome! Please fee
 - Submit pull requests for improvements
 - Share feedback on code structure and best practices
 
-## 📧 Contact
 
-**Dhruvina Gujarati**
-- Email: dhruvina21@gmail.com
-- LinkedIn: [Your LinkedIn Profile]
-- GitHub: [Your GitHub Profile]
 
----
 
-*Built with ❤️ and Flutter*

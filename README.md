@@ -32,14 +32,7 @@ This app was created to demonstrate Flutter development skills and alignment wit
 - **State Management**: StatefulWidget (expanding to Provider/Bloc)
 - **Planned Integrations**: Camera, Video Player, API calls
 
-## 📱 Supported Platforms
 
-- ✅ iOS (iPhone/iPad)
-- ✅ Android
-- ✅ Web (for development and testing)
-- ✅ macOS (desktop)
-
-## 🔧 Development Setup
 
 ### Prerequisites
 
@@ -110,16 +103,6 @@ This project demonstrates progression in Flutter development:
 5. **API Integration**: RESTful services, file uploads
 6. **Professional Practices**: Git workflow, documentation, testing
 
-## 🎓 Educational Purpose
-
-Built as part of learning Flutter for a mobile development internship opportunity with Superstars (video-first professional networking platform). This project showcases:
-
-- Quick learning ability and adaptation to new technologies
-- Understanding of mobile development best practices
-- Alignment with video-focused professional applications
-- Professional code organization and documentation
-
-## 🤝 Contributing
 
 This is a learning project, but feedback and suggestions are welcome! Please feel free to:
 
